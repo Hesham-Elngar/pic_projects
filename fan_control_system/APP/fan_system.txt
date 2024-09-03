@@ -1,0 +1,78 @@
+#include "application.h"
+#include "MCAL_Layer/ADC/adc.h"
+#include "MCAL_Layer/Timers/Timer2.h"
+#include "MCAL_Layer/CCP/hal_ccp.h"
+#include"MCAL_Layer/ADC/adc.h"
+#define NOT_PRESSED '\0'
+void fan_system(void);
+ADC_Config_t temp_sensor= {.ADC_InterruptHandler=fan_system,.Channel=ADC_AN0_CHANNEL,.Acquisition_Time=ADC_16_TAD,
+.Conversion_Clock_Select=ADC_CONVERSION_FOSC_DIV_BY_8,.ADC_Voltage_Reference=ADC_DisablevoltageRefernce,
+.ADC_Result_Format=ADC_RESULT_RIGHT
+};
+
+ccp_t ccp1_obj={.CCP1_InterruptHandler=NULL,.PWM_Frequency=20000,.ccp_inst=CCP1_INST,.ccp_mode=CCP_PWM_MODE_SELECTED
+        ,.timer2_postscaler_value=CCP_TIMER2_POSTSCALER_DIV_BY_1,.timer2_prescaler_value=CCP_TIMER2_PRESCALER_DIV_BY_1,
+.ccp_mode_variant=CCP_PWM_MODE,.ccp_pin.direction=gpio_direction_output,.ccp_pin.port=PORTC_INDEX,.ccp_pin.pin=PIN2_INDEX
+};
+
+Timer2_t timer2_obj={.Timer2_Interrupt_Handler=NULL,.postscaler_value=TIMER2_POSTSCALER_DIV_BY_1,
+.prescaler_value=TIMER2_PRESCALER_DIV_BY_1,.preload_value=0};
+ 
+int main() {
+    app_initialize();
+    while (1)
+    {
+        ADC_GetConverion_Interrupt(&temp_sensor,ADC_AN0_CHANNEL);
+    }
+    return EXIT_SUCCESS;
+}
+void app_initialize() {
+    ecu_layer_initialize();
+    CCP_Init(&ccp1_obj);
+    Timer2_Init(&timer2_obj);
+    CCP_PWM_Start(&ccp1_obj);
+    ADC_Init(&temp_sensor);
+}
+
+void fan_system(void)
+{
+    static adc_result result=NOT_PRESSED;
+    static adc_result prev_result=NOT_PRESSED;
+    u16 fan_speed=NOT_PRESSED;
+   ADC_GetConverionResult(&temp_sensor,&result);
+   if(prev_result!=result)
+   {
+       lcd_4bit_send_command(&lcd1,_LCD_CLEAR);
+        float voltage_temp = result * (5.0 / 1023.0);
+        float temperatureInCelsius = voltage_temp * 100.0; // LM35 gives 10mV per degree Celsius
+        if(temperatureInCelsius<=20)
+        {
+            fan_speed=0;
+        }
+        else if(temperatureInCelsius>20&&temperatureInCelsius<=25)
+        {
+            fan_speed=33;
+        }
+        else if(temperatureInCelsius>25&&temperatureInCelsius<=40)
+        {
+            fan_speed=66;
+        }
+        else if(temperatureInCelsius>40)
+        {
+             fan_speed=100;
+        }
+        char speed_on_lcd[17];
+        char temp_on_lcd[17];
+        sprintf(speed_on_lcd,"%d",fan_speed);
+        sprintf(temp_on_lcd,"%.2f",temperatureInCelsius);
+        CCP_PWM_Set_Duty(&ccp1_obj,fan_speed);
+        lcd_4bit_send_string_pos(&lcd1,1,1,"Temp = ");
+        lcd_4bit_send_string(&lcd1,temp_on_lcd);
+        lcd_4bit_send_string_pos(&lcd1,2,1,"Speed = ");
+        lcd_4bit_send_string(&lcd1,speed_on_lcd);
+        lcd_4bit_send_string(&lcd1," %");
+        memset(speed_on_lcd, ' ',20);
+        memset(temp_on_lcd, ' ',20);
+        prev_result=result;
+   }
+}
