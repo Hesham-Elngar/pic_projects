@@ -33,7 +33,7 @@ void int0_isr() {
 
 void adc_isr() {
     adc_ready = 1;
-    electrical_heater(); // Call the heater control function directly from the ISR
+    electrical_heater(); //Call the heater control function directly from the ISR
 }
 
 void ccp_isr() {
@@ -82,7 +82,7 @@ void app_initialize() {
     ADC_Init(&temp_sensor);
     INTx_Init(&int_obj);
     CCP_Init(&ccp_obj);
-    CCP_Compare_Mode_Set_Value(&ccp_obj, 205); // Set CCP value corresponding to 100°C
+    CCP_Compare_Mode_Set_Value(&ccp_obj, 205); // Set CCP value corresponding to 100 C
 }
 
 void electrical_heater() {
