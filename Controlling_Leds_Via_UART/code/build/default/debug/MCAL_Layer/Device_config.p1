@@ -1,0 +1,134 @@
+Version 4.0 HI-TECH Software Intermediate Code
+"17 MCAL_Layer/Device_config.h
+[p x OSC  =  HS          ]
+"18
+[p x FCMEN  =  OFF       ]
+"19
+[p x IESO  =  OFF        ]
+"22
+[p x PWRT  =  OFF        ]
+"23
+[p x BOREN  =  OFF       ]
+"24
+[p x BORV  =  1          ]
+"27
+[p x WDT  =  OFF         ]
+"28
+[p x WDTPS  =  32768     ]
+"31
+[p x CCP2MX  =  PORTC    ]
+"32
+[p x PBADEN  =  OFF      ]
+"33
+[p x LPT1OSC  =  OFF     ]
+"34
+[p x MCLRE  =  ON        ]
+"37
+[p x STVREN  =  ON       ]
+"38
+[p x LVP  =  OFF         ]
+"39
+[p x XINST  =  OFF       ]
+"42
+[p x CP0  =  OFF         ]
+"43
+[p x CP1  =  OFF         ]
+"44
+[p x CP2  =  OFF         ]
+"45
+[p x CP3  =  OFF         ]
+"48
+[p x CPB  =  OFF         ]
+"49
+[p x CPD  =  OFF         ]
+"52
+[p x WRT0  =  OFF        ]
+"53
+[p x WRT1  =  OFF        ]
+"54
+[p x WRT2  =  OFF        ]
+"55
+[p x WRT3  =  OFF        ]
+"58
+[p x WRTC  =  OFF        ]
+"59
+[p x WRTB  =  OFF        ]
+"60
+[p x WRTD  =  OFF        ]
+"63
+[p x EBTR0  =  OFF       ]
+"64
+[p x EBTR1  =  OFF       ]
+"65
+[p x EBTR2  =  OFF       ]
+"66
+[p x EBTR3  =  OFF       ]
+"69
+[p x EBTRB  =  OFF       ]
+"4 MCAL_Layer/Device_config.c
+[; ;MCAL_Layer/Device_config.c: 4: 
+[p x OSC  =  HS          ]
+"5
+[p x FCMEN  =  OFF       ]
+"6
+[p x IESO  =  OFF        ]
+"9
+[p x PWRT  =  OFF        ]
+"10
+[p x BOREN  =  OFF       ]
+"11
+[p x BORV  =  1          ]
+"14
+[p x WDT  =  OFF         ]
+"15
+[p x WDTPS  =  32768     ]
+"18
+[p x CCP2MX  =  PORTC    ]
+"19
+[p x PBADEN  =  OFF       ]
+"20
+[p x LPT1OSC  =  OFF     ]
+"21
+[p x MCLRE  =  ON        ]
+"24
+[p x STVREN  =  ON       ]
+"25
+[p x LVP  =  OFF         ]
+"26
+[p x XINST  =  OFF       ]
+"29
+[p x CP0  =  OFF         ]
+"30
+[p x CP1  =  OFF         ]
+"31
+[p x CP2  =  OFF         ]
+"32
+[p x CP3  =  OFF         ]
+"35
+[p x CPB  =  OFF         ]
+"36
+[p x CPD  =  OFF         ]
+"39
+[p x WRT0  =  OFF        ]
+"40
+[p x WRT1  =  OFF        ]
+"41
+[p x WRT2  =  OFF        ]
+"42
+[p x WRT3  =  OFF        ]
+"45
+[p x WRTC  =  OFF        ]
+"46
+[p x WRTB  =  OFF        ]
+"47
+[p x WRTD  =  OFF        ]
+"50
+[p x EBTR0  =  OFF       ]
+"51
+[p x EBTR1  =  OFF       ]
+"52
+[p x EBTR2  =  OFF       ]
+"53
+[p x EBTR3  =  OFF       ]
+"56
+[p x EBTRB  =  OFF       ]
